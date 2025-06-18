@@ -110,14 +110,8 @@ class BlogResource extends Resource
             ->columns([
                 ImageColumn::make('featured_image')
                     ->label('Image')
-                    ->circular()
                     ->disk('public')
-                    ->size(50)
-                    ->getStateUsing(function ($record) {
-                        // Debug: log path yang digunakan
-                        \Log::info('Image path: ' . $record->featured_image);
-                        return $record->featured_image;
-                    }),
+                    ->size(50),
                 
                 Tables\Columns\TextColumn::make('title')
                     ->label('Title')
