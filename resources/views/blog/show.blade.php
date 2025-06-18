@@ -1,33 +1,67 @@
 @extends('layouts.app')
 
-@section('title', $blog->title . ' - Landing Page')
+@section('title', $blog->title . ' - SEWO App')
 
 @section('content')
-<div class="container py-5">
-    <div class="row">
-        <div class="col-lg-8 mx-auto">
-            <article>
+<!-- Breadcrumb & Header -->
+<section class="blog-detail-hero">
+    <div class="container">
+        <div class="blog-detail-wrapper">
+            <!-- Breadcrumb -->
+            <nav class="blog-breadcrumb animate-fade-in">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('blog') }}">Blog</a>
+                    </li>
+                    <li class="breadcrumb-item active">{{ Str::limit($blog->title, 50) }}</li>
+                </ol>
+            </nav>
+            
+            <!-- Title -->
+            <h1 class="blog-detail-title animate-fade-in">{{ $blog->title }}</h1>
+            
+            <!-- Meta Info -->
+            <div class="blog-detail-meta animate-fade-in">
+                <span class="meta-item">
+                    <i class="bi bi-calendar3"></i>
+                    {{ $blog->formatted_published_at }}
+                </span>
+                <span class="meta-item">
+                    <i class="bi bi-eye"></i>
+                    5 min read
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Article Content -->
+<section class="blog-detail-content section-padding">
+    <div class="container">
+        <div class="blog-detail-wrapper">
+            <article class="blog-article animate-fade-in">
                 @if($blog->featured_image)
-                    <img src="{{ Storage::url($blog->featured_image) }}" class="img-fluid rounded mb-4" alt="{{ $blog->title }}">
+                    <div class="blog-featured-image">
+                        <img src="{{ Storage::url($blog->featured_image) }}" class="img-fluid" alt="{{ $blog->title }}">
+                    </div>
                 @endif
                 
-                <h1 class="mb-3">{{ $blog->title }}</h1>
-                
-                <p class="text-muted mb-4">
-                    <small>Dipublikasikan pada {{ $blog->formatted_published_at }}</small>
-                </p>
-                
-                <div class="content">
+                <div class="blog-content-body">
                     {!! $blog->content !!}
                 </div>
             </article>
             
-            <hr class="my-5">
-            
-            <div class="text-center">
-                <a href="{{ route('blog') }}" class="btn btn-outline-primary">← Kembali ke Blog</a>
+            <!-- Back Button -->
+            <div class="blog-back-section">
+                <a href="{{ route('blog') }}" class="btn-back">
+                    <i class="bi bi-arrow-left"></i>
+                    Kembali ke Blog
+                </a>
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
